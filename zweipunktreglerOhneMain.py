@@ -127,11 +127,19 @@ class Cloud():
 # ********************* Ende class Cloud
 def main():
     tempsen1=Ds18b20("28-000006dccb21") # Temperatursensorobjekt erzeugen, hier Seriennummer anpassen
-    mycloud=... # URL des MQTT-Brokers, Basistopic und Quelle für Raumtemperatur
- .
- .
- .
- .
+    mycloud=Cloud("172.26.1.1","servertemp",tempsen1) # URL des MQTT-Brokers, Basistopic und Quelle für Raumtemperatur
+    mycloud.set_setpointTemp(20)    # Setzen der Solltemperatur
+    mycloud.set_hyst(2)             # Setzen der Hysterese
+    mycloud.set_gpioFan(18)         # Setzen des GPIO-Pins
+    gpioport=mycloud.get_gpioFan()
+    myfan=Fan(gpioport)
+    mycontoller=Controller(mycloud, myfan)
+
+    while True:
+        temp=tempsen1.get_celsius()
+        mycloud.set_roomTemp(temp)
+        mycloud.update()
+        mycontroller.control()
  
     return
  
