@@ -136,10 +136,10 @@ def main():
     mycontoller=Controller(mycloud, myfan)
 
     while True:
-        temp=tempsen1.get_celsius()
-        mycloud.set_roomTemp(temp)
+        temp=tempsen1.get_celsius() # Nur auf Tempsensor-Pi benötigt
+        mycloud.set_roomTemp(temp) # Nur auf Tempsensor-Pi benötigt
         mycloud.update()
-        mycontroller.control()
+        mycontroller.control() # # Nur auf Controller-Pi benötigt
  
     return
  
